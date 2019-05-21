@@ -1,0 +1,3088 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Projetv5}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{tsp-problem-using-ce-method}{%
+\section{TSP problem using CE
+Method}\label{tsp-problem-using-ce-method}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k+kn}{import} \PY{n}{permutations}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k}{class} \PY{n+nc}{TSP}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Classe permettant de résoudre un problème TSP, deux versions sont disponibles :}
+         \PY{l+s+sd}{        \PYZhy{}la version originale proposée par les auteurs de la méthode (avec un smooth update possible)}
+         \PY{l+s+sd}{        \PYZhy{}une version prenant une approche bayésienne}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Attributs à entrer par l\PYZsq{}utilisateur:}
+         \PY{l+s+sd}{        c: matrice de poids pour les trajets entre les villes.}
+         \PY{l+s+sd}{        methode: au choix entre \PYZdq{}CE\PYZdq{} pour la 1ere version et \PYZdq{}Bayes\PYZdq{} pour la 2nd}
+         \PY{l+s+sd}{        k: nombre de simulations pour chaque update de la forme k*(nombre villes)\PYZca{}2 (int)}
+         \PY{l+s+sd}{        perc: percentile fixé dans l\PYZsq{}algo (int entre 1 et 100) }
+         \PY{l+s+sd}{        seed: graine pour fixer l\PYZsq{}aléatoire (int)}
+         \PY{l+s+sd}{        stop: critère d\PYZsq{}arrêt (on s\PYZsq{}arrète quand les d derniers quantiles sont les mêmes)}
+         \PY{l+s+sd}{        alpha: \PYZdq{}smoothing\PYZdq{} parameter (1ere version only)}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Attributs:}
+         \PY{l+s+sd}{        n: nombre de villes}
+         \PY{l+s+sd}{        N: nombre de simulations pour chaque update}
+         \PY{l+s+sd}{        p: matrice de transition entre les villes (pij proba de passer de la ville i à la ville j),}
+         \PY{l+s+sd}{           initialisée par des Dirichlet uniformes}
+         \PY{l+s+sd}{        p\PYZus{}old: version de p de l\PYZsq{}update précédent (1ere version only)}
+         \PY{l+s+sd}{        r: matrice des paramètres de Dirichlet (chaque ligne correspond à une Dirichlet), }
+         \PY{l+s+sd}{           initialisée avec alpha=1 (2eme version only)}
+         \PY{l+s+sd}{        r\PYZus{}old: version de r de l\PYZsq{}update précédent (2eme version only)}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Méthodes: (Voir aide spécifique à chaque méthode pour plus de détails)}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{methode}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{perc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{stop}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{show\PYZus{}p}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{show\PYZus{}q}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Constructeur de la classe TSPBayes\PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{k}{if} \PY{n}{methode} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bayes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+                     \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mauvaise méthode, méthodes disponibles : Bayes, CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                     \PY{n}{sys}\PY{o}{.}\PY{n}{exit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c} \PY{o}{=} \PY{n}{c}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode} \PY{o}{=} \PY{n}{methode}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N} \PY{o}{=} \PY{n}{k} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{perc} \PY{o}{=} \PY{n}{perc}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed} \PY{o}{=} \PY{n}{seed}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stop} \PY{o}{=} \PY{n}{stop}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{solution} \PY{o}{=} \PY{n+nb+bp}{None}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{show\PYZus{}p} \PY{o}{=} \PY{n}{show\PYZus{}p}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{show\PYZus{}q} \PY{o}{=} \PY{n}{show\PYZus{}q}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{alpha} \PY{o}{=} \PY{n}{alpha}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}old} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}
+                     
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bayes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}init}\PY{p}{(}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r\PYZus{}old} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r}
+         
+             \PY{k}{def} \PY{n+nf}{gen\PYZus{}dir}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Simule 1 observation de loi de Dirichlet. (2eme version only)}
+         \PY{l+s+sd}{        Ne prend en compte que les paramètres positifs\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+                 \PY{n}{alpha} \PY{o}{=} \PY{n}{alpha}\PY{p}{[}\PY{n}{alpha}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}
+                 
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{dirichlet}\PY{p}{(}\PY{n}{alpha}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 
+         
+             \PY{k}{def} \PY{n+nf}{p\PYZus{}init}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Initialise la matrice p avec des Dirichlet uniformes (2eme version only)}
+         \PY{l+s+sd}{        Chaque ligne est simulée selon une Dirichlet(1,...,1) }
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{n}{row} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gen\PYZus{}dir}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{tile}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{}On insert des 0 car la matrice p ne doit contenir que des 0 sur sa diagonale}
+                     \PY{n}{row} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{n}{p}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{row}
+         
+                 \PY{k}{return} \PY{n}{p}
+                 
+             \PY{k}{def} \PY{n+nf}{generate\PYZus{}tours}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Génère N tours selon les probabilités de transition de p}
+         \PY{l+s+sd}{        Retourne une matrice de taille N*n où chaque ligne est un tour\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+                 \PY{c+c1}{\PYZsh{}première ville toujours 0 (mieux de prendre 0 que 1 pour les indices des matrices)}
+                 \PY{c+c1}{\PYZsh{}Fixer la ville de départ se fait sans perte de généralité}
+                 \PY{n}{tours} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N}\PY{p}{,}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+         
+                 \PY{k}{for} \PY{n}{obs} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{n}{p} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{k}{for} \PY{n}{step} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         
+                         \PY{c+c1}{\PYZsh{}colonne dernière ville du tour mise à 0 pour qu\PYZsq{}on n\PYZsq{}y repasse pas}
+                         \PY{n}{p}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{tours}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{p}{(}\PY{n}{step}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
+                         
+                         \PY{k}{with} \PY{n}{np}\PY{o}{.}\PY{n}{errstate}\PY{p}{(}\PY{n}{invalid}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{divide}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:} 
+                             \PY{n}{p} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{p}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{c+c1}{\PYZsh{}renormalise pour que les colonnes somment à 1}
+                         
+                         \PY{c+c1}{\PYZsh{}génère une multinomiale(1,p1,...,pn) pour trouver la prochaine ville}
+                         \PY{n}{tours}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{n}{step}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{p}\PY{p}{[}\PY{n}{tours}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{p}{(}\PY{n}{step}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                         
+                     \PY{n}{tours}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}retour à la ville 0 (départ)}
+                     
+                 \PY{k}{return} \PY{n}{tours}
+                 
+             \PY{k}{def} \PY{n+nf}{S}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Calcule la performance du tour par rapport à la matrice de poids c}
+         \PY{l+s+sd}{        Performance = somme des distances parcourues entre les villes\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+                 \PY{n}{score} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{score} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{c}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{}cout d\PYZsq{}aller d\PYZsq{}une ville à une autre }
+         
+                 \PY{k}{return} \PY{n}{score}
+             
+             \PY{k}{def} \PY{n+nf}{construct\PYZus{}mult}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Construction des observations multinomiales à partir des tours, }
+         \PY{l+s+sd}{        de leur score et du quantile (2eme version only)\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+                 \PY{n}{m} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r}\PY{p}{)}
+             
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{score}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{q}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{obs} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{i} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{n}{idx}\PY{p}{]}
+                         \PY{n}{j} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                         \PY{n}{m}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            
+                 \PY{k}{return} \PY{n}{m}
+         
+             
+             \PY{k}{def} \PY{n+nf}{update\PYZus{}Bayes}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Update bayésien de la matrice p. (2eme version only)}
+         \PY{l+s+sd}{        Calcul des nouveau coefficients des Dirichlet par la formule de Bayes }
+         \PY{l+s+sd}{        simulation de la nouvelle matrice p par ces lois Dirichlet\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+                 \PY{n}{r\PYZus{}temp} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{construct\PYZus{}mult}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r\PYZus{}old} \PY{o}{=} \PY{n}{r\PYZus{}temp}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r\PYZus{}old}
+                 
+                 \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{n}{u} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gen\PYZus{}dir}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{n}{p}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{u}
+                     
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p} \PY{o}{=} \PY{n}{p}
+                     
+                 \PY{k}{return} \PY{n+nb+bp}{None}
+             
+             \PY{k}{def} \PY{n+nf}{update\PYZus{}CE}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,} \PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Permet de faire l\PYZsq{}update \PYZdq{}smooth\PYZdq{} des probas de transition pij (1ere version only)}
+         \PY{l+s+sd}{        la methode \PYZdq{}smooth\PYZdq{} evite les problemes avec des 0 au mauvais endroits\PYZsq{}\PYZsq{}\PYZsq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}old} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{p} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{p}{)}
+                 
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{score}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{q}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{obs} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{i} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{n}{idx}\PY{p}{]}
+                         \PY{n}{j} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{obs}\PY{p}{,}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                         \PY{n}{p}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+                 \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{alpha}\PY{o}{*}\PY{n}{p} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{alpha}\PY{p}{)}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}old}
+                      
+                 \PY{k}{return} \PY{n+nb+bp}{None}
+             
+             
+             \PY{k}{def} \PY{n+nf}{show\PYZus{}prob}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Affiche p sous forme de HeatMap\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{p}{,}\PY{n}{fignum}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{j}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+          
+             \PY{k}{def} \PY{n+nf}{CE\PYZus{}fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed}\PY{p}{:} 
+                  \PY{c+c1}{\PYZsh{}fixe aléa}
+                  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed}\PY{p}{)}
+                  
+                 \PY{c+c1}{\PYZsh{}Critére d\PYZsq{}arrêt : les \PYZsq{}stop\PYZsq{} derniers quantiles calculés sont les mêmes, q\PYZus{}memory les stockent}
+                 \PY{c+c1}{\PYZsh{}q\PYZus{}memory = np.zeros(self.stop)}
+                 \PY{n}{q\PYZus{}memory} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{n}{epoch} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{infty}
+                 
+                 \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vous utilisez la méthode : \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{while} \PY{n+nb+bp}{True}\PY{p}{:}
+                     \PY{n}{epoch} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{)}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{}genere les \PYZdq{}tours\PYZdq{}}
+                     \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}tours}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{}calcul du score pour chaque tour}
+                     \PY{n}{score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{apply\PYZus{}along\PYZus{}axis}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{S}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{}quantile}
+                     \PY{n}{q} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{score}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{perc}\PY{p}{)}
+                     
+                     \PY{n}{best} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{best} \PY{o}{\PYZlt{}} \PY{n}{best\PYZus{}score}\PY{p}{:} 
+                         \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{best}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{solution} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{score}\PY{p}{)}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                         
+                     \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantile : \PYZob{}\PYZcb{}, Meilleur score : \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{best}\PY{p}{)}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{}on update nos quantiles pour le critère d\PYZsq{}arrêt dans la memory}
+                     \PY{c+c1}{\PYZsh{}q\PYZus{}memory[:\PYZhy{}1] = q\PYZus{}memory[1:]}
+                     \PY{c+c1}{\PYZsh{}q\PYZus{}memory[\PYZhy{}1] = q}
+                     \PY{n}{q\PYZus{}memory} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{q\PYZus{}memory}\PY{p}{,}\PY{p}{[}\PY{n}{q}\PY{p}{]}\PY{p}{)}
+                                 
+                     \PY{k}{if} \PY{n}{epoch}\PY{o}{\PYZpc{}}\PY{k}{self}.show\PYZus{}p==0: 
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{show\PYZus{}prob}\PY{p}{(}\PY{p}{)}
+                         
+                     \PY{k}{if} \PY{n}{epoch}\PY{o}{\PYZpc{}}\PY{k}{self}.show\PYZus{}q==0: 
+                         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{q\PYZus{}memory}\PY{p}{)}
+                         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{}smooth update}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{update\PYZus{}CE}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}
+                         
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{methode}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bayes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{update\PYZus{}Bayes}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{score}\PY{p}{,}\PY{n}{q}\PY{p}{)}
+                         
+                     \PY{c+c1}{\PYZsh{}si les 5 derniers quantiles sont les mêmes ont arrête}
+                     \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q\PYZus{}memory}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{:}
+                         \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{q\PYZus{}memory}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stop}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{1} \PY{p}{:} \PY{k}{break}  
+                 
+                 \PY{c+c1}{\PYZsh{}Affichage finale}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{show\PYZus{}prob}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{q\PYZus{}memory}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{final epoch \PYZob{}\PYZcb{}, dernier quantile : \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Meilleur score \PYZob{}\PYZcb{}, solution : \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}score}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{solution}\PY{p}{)}\PY{p}{)}
+                         
+                 \PY{k}{return}
+\end{Verbatim}
+
+
+    \hypertarget{applications}{%
+\section{Applications}\label{applications}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}distance\PYZus{}from\PYZus{}cartesian}\PY{p}{(}\PY{n}{arr}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Fonction permettant de calculer la matrice des distances à partir d\PYZsq{}une liste de coordonnées cartésiennes\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{n} \PY{o}{=} \PY{n}{arr}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{arr}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{arr}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                     
+             \PY{n}{c} \PY{o}{+}\PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{T}
+             
+             \PY{k}{return} \PY{n}{c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{sin}\PY{p}{,} \PY{n}{cos}\PY{p}{,} \PY{n}{sqrt}\PY{p}{,} \PY{n}{atan2}\PY{p}{,} \PY{n}{radians}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}distance\PYZus{}from\PYZus{}geographic}\PY{p}{(}\PY{n}{arr}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Fonction permettant de calculer la matrice des distances à partir d\PYZsq{}une liste}
+         \PY{l+s+sd}{    de latitudes et longitudes\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{} approximate radius of earth in km}
+             \PY{n}{R} \PY{o}{=} \PY{l+m+mf}{6373.0}
+             \PY{n}{n} \PY{o}{=} \PY{n}{arr}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{distance\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 
+                     \PY{n}{lat1} \PY{o}{=} \PY{n}{radians}\PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{lon1} \PY{o}{=} \PY{n}{radians}\PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{lat2} \PY{o}{=} \PY{n}{radians}\PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{lon2} \PY{o}{=} \PY{n}{radians}\PY{p}{(}\PY{n}{arr}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                     
+                     \PY{n}{dlon} \PY{o}{=} \PY{n}{lon2} \PY{o}{\PYZhy{}} \PY{n}{lon1}
+                     \PY{n}{dlat} \PY{o}{=} \PY{n}{lat2} \PY{o}{\PYZhy{}} \PY{n}{lat1}
+         
+                     \PY{n}{a} \PY{o}{=} \PY{n}{sin}\PY{p}{(}\PY{n}{dlat} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{cos}\PY{p}{(}\PY{n}{lat1}\PY{p}{)} \PY{o}{*} \PY{n}{cos}\PY{p}{(}\PY{n}{lat2}\PY{p}{)} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{dlon} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                     \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{atan2}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}\PY{p}{)}
+         
+                     \PY{n}{distance} \PY{o}{=} \PY{n}{R} \PY{o}{*} \PY{n}{c}
+                     \PY{n}{distance\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{distance}
+                     
+             \PY{n}{distance\PYZus{}mat} \PY{o}{+}\PY{o}{=} \PY{n}{distance\PYZus{}mat}\PY{o}{.}\PY{n}{T}
+             
+             \PY{k}{return} \PY{n}{distance\PYZus{}mat}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def} \PY{n+nf}{best\PYZus{}score}\PY{p}{(}\PY{n}{TSP}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Calcul la vraie solution d\PYZsq{}un probleme TSP}
+         \PY{l+s+sd}{    La taille de la boucle est n! donc à ne pas tester sur plus d\PYZsq{}une dizaine de villes\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{mini} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{infty}
+             \PY{k}{for} \PY{n}{tours} \PY{o+ow}{in} \PY{n}{permutations}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{TSP}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s} \PY{o}{=} \PY{n}{TSP}\PY{o}{.}\PY{n}{S}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{)} \PY{o}{+} \PY{n}{tours} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{s}\PY{o}{\PYZlt{}} \PY{n}{mini}\PY{p}{:}
+                     \PY{n}{mini} \PY{o}{=} \PY{n}{s}
+             \PY{k}{return} \PY{n}{mini}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{CE\PYZus{}solution}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{method}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{perc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Fit la classe TSP sur un matrice de distances c\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{tsp} \PY{o}{=} \PY{n}{TSP}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{n}{k}\PY{p}{,}\PY{n}{perc}\PY{o}{=}\PY{n}{perc}\PY{p}{,}\PY{n}{methode}\PY{o}{=}\PY{n}{method}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{n}{alpha}\PY{p}{)}
+             \PY{n}{tsp}\PY{o}{.}\PY{n}{CE\PYZus{}fit}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{tsp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}solution\PYZus{}cartesian}\PY{p}{(}\PY{n}{tsp}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}tsp : objet TSP fitté, }
+         \PY{l+s+sd}{    d :  matrice contenant les coordonnées cartésiennes\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+             \PY{c+c1}{\PYZsh{}Ensemble de points}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ensemble des villes dans le plan}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{d}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{off}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Solution}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trajet optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{permut} \PY{o}{=} \PY{n}{tsp}\PY{o}{.}\PY{n}{solution}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{permut}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{my\PYZus{}data}\PY{p}{[}\PY{n}{permut}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{off}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{examples-uxe0-moins-de-20-villes}{%
+\subsection{Examples à moins de 20
+villes}\label{examples-uxe0-moins-de-20-villes}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{my\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tiny.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{my\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} array([[-1.0856306 , -0.67888615],
+                [ 0.99734545, -0.09470897],
+                [ 0.2829785 ,  1.49138963],
+                [-1.50629471, -0.638902  ],
+                [-0.57860025, -0.44398196],
+                [ 1.65143654, -0.43435128],
+                [-2.42667924,  2.20593008],
+                [-0.42891263,  2.18678609],
+                [ 1.26593626,  1.0040539 ],
+                [-0.8667404 ,  0.3861864 ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{c} \PY{o}{=} \PY{n}{get\PYZus{}distance\PYZus{}from\PYZus{}cartesian}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{)}
+         \PY{n}{c}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} array([[0.        , 2.16334283, 2.56577236, 0.42256009, 0.55880207,
+                 2.74796904, 3.1812853 , 2.93995848, 2.89173891, 1.08733273],
+                [2.16334283, 0.        , 1.73954847, 2.56210072, 1.61418601,
+                 0.73701564, 4.12515274, 2.69061922, 1.13111488, 1.92511724],
+                [2.56577236, 1.73954847, 0.        , 2.78202103, 2.11848557,
+                 2.36244691, 2.80228713, 0.99517095, 1.09713357, 1.5947814 ],
+                [0.42256009, 2.56210072, 2.78202103, 0.        , 0.94795086,
+                 3.16434948, 2.99001292, 3.02411397, 3.22250968, 1.20823671],
+                [0.55880207, 1.61418601, 2.11848557, 0.94795086, 0.        ,
+                 2.23005758, 3.23070113, 2.63502313, 2.34502085, 0.87875153],
+                [2.74796904, 0.73701564, 2.36244691, 3.16434948, 2.23005758,
+                 0.        , 4.85820069, 3.34637322, 1.48916752, 2.6484896 ],
+                [3.1812853 , 4.12515274, 2.80228713, 2.99001292, 3.23070113,
+                 4.85820069, 0.        , 1.99785834, 3.8832867 , 2.39684715],
+                [2.93995848, 2.69061922, 0.99517095, 3.02411397, 2.63502313,
+                 3.34637322, 1.99785834, 0.        , 2.06672886, 1.85306568],
+                [2.89173891, 1.13111488, 1.09713357, 3.22250968, 2.34502085,
+                 1.48916752, 3.8832867 , 2.06672886, 0.        , 2.22037609],
+                [1.08733273, 1.92511724, 1.5947814 , 1.20823671, 0.87875153,
+                 2.6484896 , 2.39684715, 1.85306568, 2.22037609, 0.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         tsp = CE\PYZus{}solution(c,method=\PYZdq{}Bayes\PYZdq{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vous utilisez la méthode : Bayes
+Epoch 1
+Quantile : 17.4371328939, Meilleur score : 15.9746642839
+Epoch 2
+Quantile : 15.0555992943, Meilleur score : 13.4569095786
+Epoch 3
+Quantile : 14.0292636163, Meilleur score : 13.3796036929
+Epoch 4
+Quantile : 13.4569095786, Meilleur score : 12.7747969708
+Epoch 5
+Quantile : 13.3796036929, Meilleur score : 12.7747969708
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 6
+Quantile : 13.3523720369, Meilleur score : 12.7747969708
+Epoch 7
+Quantile : 13.0430417804, Meilleur score : 12.7747969708
+Epoch 8
+Quantile : 12.7747969708, Meilleur score : 12.7747969708
+Epoch 9
+Quantile : 12.7747969708, Meilleur score : 12.7747969708
+Epoch 10
+Quantile : 12.7747969708, Meilleur score : 12.7747969708
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 11
+Quantile : 12.7747969708, Meilleur score : 12.7747969708
+Epoch 12
+Quantile : 12.7747969708, Meilleur score : 12.7747969708
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+final epoch 12, dernier quantile : 12.7747969708
+Meilleur score 12.7747969708, solution : [0 4 5 1 8 2 7 6 9 3 0]
+CPU times: user 8.18 s, sys: 226 ms, total: 8.4 s
+Wall time: 7.62 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{k}{print}\PY{p}{(}\PY{n}{tsp}\PY{o}{.}\PY{n}{solution}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 4 5 1 8 2 7 6 9 3 0]
+
+    \end{Verbatim}
+
+    Visualisation de la solution
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{plot\PYZus{}solution\PYZus{}cartesian}\PY{p}{(}\PY{n}{tsp}\PY{p}{,}\PY{n}{my\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ensemble des villes dans le plan
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Trajet optimal
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{examples-uxe0-moins-de-30-villes}{%
+\subsection{Examples à moins de 30
+villes}\label{examples-uxe0-moins-de-30-villes}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{my\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{c} \PY{o}{=} \PY{n}{get\PYZus{}distance}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{)}
+         \PY{n}{c}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} (30, 30)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         tsp = CE\PYZus{}solution(c,method=\PYZdq{}CE\PYZdq{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vous utilisez la méthode : CE
+Epoch 1
+Quantile : 224.722006221, Meilleur score : 166.200409262
+Epoch 2
+Quantile : 157.740605259, Meilleur score : 106.423013882
+Epoch 3
+Quantile : 114.770701974, Meilleur score : 90.8729174123
+Epoch 4
+Quantile : 93.8894590928, Meilleur score : 79.7158769614
+Epoch 5
+Quantile : 84.1933624174, Meilleur score : 71.9405699546
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 6
+Quantile : 78.251906305, Meilleur score : 70.9173048917
+Epoch 7
+Quantile : 74.8883919311, Meilleur score : 66.3631051453
+Epoch 8
+Quantile : 72.4084292499, Meilleur score : 65.899264206
+Epoch 9
+Quantile : 70.4491614929, Meilleur score : 65.7081540394
+Epoch 10
+Quantile : 68.348440634, Meilleur score : 64.467345934
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 11
+Quantile : 66.8126865298, Meilleur score : 63.6714268128
+Epoch 12
+Quantile : 65.2061217848, Meilleur score : 62.5604245797
+Epoch 13
+Quantile : 63.5483578756, Meilleur score : 61.6442338057
+Epoch 14
+Quantile : 62.1714915952, Meilleur score : 60.8422718021
+Epoch 15
+Quantile : 60.8422718021, Meilleur score : 60.4051551351
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 16
+Quantile : 60.4051551351, Meilleur score : 60.1773663655
+Epoch 17
+Quantile : 60.4051551351, Meilleur score : 60.4051551351
+Epoch 18
+Quantile : 60.4051551351, Meilleur score : 60.4051551351
+Epoch 19
+Quantile : 60.4051551351, Meilleur score : 60.4051551351
+Epoch 20
+Quantile : 60.4051551351, Meilleur score : 60.4051551351
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+final epoch 20, dernier quantile : 60.4051551351
+Meilleur score 60.1773663655, solution : [ 0 19  6  9 29 22 27 11 14  2 18  5 23 26  1 10 24  8 17 21 16 12 15 25
+  7  3 28 20  4 13  0]
+CPU times: user 5min 14s, sys: 2.42 s, total: 5min 17s
+Wall time: 5min 23s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{print}\PY{p}{(}\PY{n}{tsp}\PY{o}{.}\PY{n}{solution}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0 19  6  9 29 22 27 11 14  2 18  5 23 26  1 10 24  8 17 21 16 12 15 25
+  7  3 28 20  4 13  0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{plot\PYZus{}solution}\PY{p}{(}\PY{n}{tsp}\PY{p}{,}\PY{n}{my\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ensemble des villes dans le plan
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Trajet optimal
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{tour-du-monde}{%
+\subsection{Tour du monde}\label{tour-du-monde}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{worldcities.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{k}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(12959, 11)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:}           city   city\_ascii      lat      lng country iso2 iso3   admin\_name  \textbackslash{}
+          0    Malishevë    Malisheve  42.4822  20.7458  Kosovo   XK  XKS    Malishevë   
+          1      Prizren      Prizren  42.2139  20.7397  Kosovo   XK  XKS      Prizren   
+          2  Zubin Potok  Zubin Potok  42.9144  20.6897  Kosovo   XK  XKS  Zubin Potok   
+          3     Kamenicë     Kamenice  42.5781  21.5803  Kosovo   XK  XKS     Kamenicë   
+          4         Viti         Viti  42.3214  21.3583  Kosovo   XK  XKS         Viti   
+          
+            capital  population          id  
+          0   admin         NaN  1901597212  
+          1   admin         NaN  1901360309  
+          2   admin         NaN  1901608808  
+          3   admin         NaN  1901851592  
+          4   admin         NaN  1901328795  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{capital}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{population}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          \PY{k}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(217, 11)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:}              city    city\_ascii      lat      lng       country iso2 iso3  \textbackslash{}
+          39          Sanaa         Sanaa  15.3547  44.2066         Yemen   YE  YEM   
+          135      Pretoria      Pretoria -25.7069  28.2294  South Africa   ZA  ZAF   
+          136  Bloemfontein  Bloemfontein -29.1200  26.2299  South Africa   ZA  ZAF   
+          137     Cape Town     Cape Town -33.9200  18.4350  South Africa   ZA  ZAF   
+          140        Lusaka        Lusaka -15.4166  28.2833        Zambia   ZM  ZMB   
+          
+                      admin\_name  capital  population          id  
+          39   Amānat al ‘Āşimah  primary   2008000.0  1887750814  
+          135            Gauteng  primary   1338000.0  1710176249  
+          136         Free State  primary    463064.0  1710495933  
+          137       Western Cape  primary   3215000.0  1710680650  
+          140             Lusaka  primary   1328000.0  1894157390  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{}On ne sélectionne que les p plus grandes villes en terme de population}
+          \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{p}\PY{p}{:}\PY{p}{]}
+          \PY{k}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(50, 11)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{}On construit la matrice des distances}
+          \PY{n}{my\PYZus{}data} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lng}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          \PY{n}{c} \PY{o}{=} \PY{n}{get\PYZus{}distance\PYZus{}from\PYZus{}geographic}\PY{p}{(}\PY{n}{my\PYZus{}data}\PY{p}{)}
+          \PY{n}{c}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:} (50, 50)
+\end{Verbatim}
+            
+    \hypertarget{smooth-update}{%
+\subsubsection{Smooth Update}\label{smooth-update}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+          tsp\PYZus{}Smooth = CE\PYZus{}solution(c,method=\PYZdq{}CE\PYZdq{},alpha=0.8)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vous utilisez la méthode : CE
+Epoch 1
+Quantile : 174686.011515, Meilleur score : 151551.960037
+Epoch 2
+Quantile : 136117.414296, Meilleur score : 119701.134345
+Epoch 3
+Quantile : 111881.204628, Meilleur score : 88073.0102416
+Epoch 4
+Quantile : 95567.4393759, Meilleur score : 82084.7710172
+Epoch 5
+Quantile : 84979.6983047, Meilleur score : 75932.9450042
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 6
+Quantile : 78477.9755086, Meilleur score : 70926.0770057
+Epoch 7
+Quantile : 73248.0076438, Meilleur score : 66106.7170661
+Epoch 8
+Quantile : 68976.2466222, Meilleur score : 64459.3998352
+Epoch 9
+Quantile : 66577.8876163, Meilleur score : 62039.1174817
+Epoch 10
+Quantile : 64210.3561722, Meilleur score : 61290.3759039
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 11
+Quantile : 61933.3628238, Meilleur score : 59829.0499996
+Epoch 12
+Quantile : 61487.1445627, Meilleur score : 59010.4400167
+Epoch 13
+Quantile : 60324.3506887, Meilleur score : 59829.0499996
+Epoch 14
+Quantile : 59829.0499996, Meilleur score : 58515.1393276
+Epoch 15
+Quantile : 59829.0499996, Meilleur score : 58515.1393276
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 16
+Quantile : 59829.0499996, Meilleur score : 58515.1393276
+Epoch 17
+Quantile : 59829.0499996, Meilleur score : 59829.0499996
+Epoch 18
+Quantile : 59829.0499996, Meilleur score : 59829.0499996
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+final epoch 18, dernier quantile : 59829.0499996
+Meilleur score 58515.1393276, solution : [ 0 20  1 11 22  7  3 14 18  8 24 15 19 17 16 13  5  4 23  9 12  6 21  2
+ 10  0]
+CPU times: user 2min 38s, sys: 1.05 s, total: 2min 39s
+Wall time: 2min 39s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{k}{print}\PY{p}{(}\PY{n}{tsp\PYZus{}Smooth}\PY{o}{.}\PY{n}{solution}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0 20  1 11 22  7  3 14 18  8 24 15 19 17 16 13  5  4 23  9 12  6 21  2
+ 10  0]
+
+    \end{Verbatim}
+
+    \hypertarget{bayesian}{%
+\subsubsection{Bayesian}\label{bayesian}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         tsp\PYZus{}Bayes = CE\PYZus{}solution(c,method=\PYZdq{}Bayes\PYZdq{}, perc = 1)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vous utilisez la méthode : Bayes
+Epoch 1
+Quantile : 167810.541913, Meilleur score : 137448.196752
+Epoch 2
+Quantile : 135865.642153, Meilleur score : 107487.593977
+Epoch 3
+Quantile : 124629.087181, Meilleur score : 102327.233351
+Epoch 4
+Quantile : 115425.494651, Meilleur score : 95151.2985713
+Epoch 5
+Quantile : 110352.286939, Meilleur score : 89824.9183391
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 6
+Quantile : 106671.626347, Meilleur score : 84009.5846326
+Epoch 7
+Quantile : 103163.701912, Meilleur score : 87937.1855245
+Epoch 8
+Quantile : 100040.873894, Meilleur score : 80491.8984455
+Epoch 9
+Quantile : 99237.994317, Meilleur score : 81756.2707252
+Epoch 10
+Quantile : 97796.2881882, Meilleur score : 81908.7242613
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 11
+Quantile : 95072.9269502, Meilleur score : 84660.9414057
+Epoch 12
+Quantile : 94465.123208, Meilleur score : 79213.2548853
+Epoch 13
+Quantile : 92737.9655924, Meilleur score : 79609.7072742
+Epoch 14
+Quantile : 93184.6950568, Meilleur score : 78057.8088087
+Epoch 15
+Quantile : 93272.0414869, Meilleur score : 78466.6393694
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 16
+Quantile : 90302.811928, Meilleur score : 77114.8630402
+Epoch 17
+Quantile : 89966.0067887, Meilleur score : 71762.4842571
+Epoch 18
+Quantile : 88996.0097802, Meilleur score : 76894.6685785
+Epoch 19
+Quantile : 87354.3416981, Meilleur score : 77795.3847187
+Epoch 20
+Quantile : 88755.8951205, Meilleur score : 73494.0224474
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 21
+Quantile : 87374.4719486, Meilleur score : 74383.5299851
+Epoch 22
+Quantile : 86633.3428935, Meilleur score : 76635.2930275
+Epoch 23
+Quantile : 86338.474805, Meilleur score : 74913.8783818
+Epoch 24
+Quantile : 86742.1932479, Meilleur score : 73375.6178264
+Epoch 25
+Quantile : 86418.7988203, Meilleur score : 76321.5181829
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 26
+Quantile : 85565.723071, Meilleur score : 76018.7505262
+Epoch 27
+Quantile : 84943.0526054, Meilleur score : 73812.517575
+Epoch 28
+Quantile : 84612.5301432, Meilleur score : 72659.0866446
+Epoch 29
+Quantile : 84390.5457082, Meilleur score : 75168.3124421
+Epoch 30
+Quantile : 83750.6676268, Meilleur score : 72194.0053847
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 31
+Quantile : 84435.3683269, Meilleur score : 74672.0718917
+Epoch 32
+Quantile : 84573.1791665, Meilleur score : 77160.3423106
+Epoch 33
+Quantile : 83742.8993174, Meilleur score : 72171.1964326
+Epoch 34
+Quantile : 82124.5852091, Meilleur score : 71936.3284106
+Epoch 35
+Quantile : 82471.9297075, Meilleur score : 71149.0142891
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 36
+Quantile : 82632.4076754, Meilleur score : 72427.3967977
+Epoch 37
+Quantile : 82365.9617316, Meilleur score : 75434.3216997
+Epoch 38
+Quantile : 82486.787637, Meilleur score : 73505.2897771
+Epoch 39
+Quantile : 82593.0211482, Meilleur score : 73682.4545263
+Epoch 40
+Quantile : 82122.2494348, Meilleur score : 73220.1640428
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 41
+Quantile : 81926.0048435, Meilleur score : 72569.5433765
+Epoch 42
+Quantile : 80913.7252048, Meilleur score : 71878.8543724
+Epoch 43
+Quantile : 81467.615523, Meilleur score : 72944.3642595
+Epoch 44
+Quantile : 80905.5506415, Meilleur score : 72624.5164916
+Epoch 45
+Quantile : 81397.7838634, Meilleur score : 75195.9240907
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 46
+Quantile : 81381.1882937, Meilleur score : 71416.9168151
+Epoch 47
+Quantile : 80829.0578525, Meilleur score : 72353.4710685
+Epoch 48
+Quantile : 80114.1428138, Meilleur score : 72185.4167895
+Epoch 49
+Quantile : 80948.0182348, Meilleur score : 72935.3585168
+Epoch 50
+Quantile : 80033.2172497, Meilleur score : 71041.9931676
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 51
+Quantile : 80565.5953366, Meilleur score : 71352.8052042
+Epoch 52
+Quantile : 79768.4702623, Meilleur score : 71240.160483
+Epoch 53
+Quantile : 79851.5354979, Meilleur score : 67878.6658029
+Epoch 54
+Quantile : 79717.9008421, Meilleur score : 71183.9565492
+Epoch 55
+Quantile : 80421.0734091, Meilleur score : 72410.6294922
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 56
+Quantile : 79302.2572603, Meilleur score : 67369.7546999
+Epoch 57
+Quantile : 79864.7794307, Meilleur score : 65980.5769062
+Epoch 58
+Quantile : 79440.9645412, Meilleur score : 71424.4676843
+Epoch 59
+Quantile : 79566.7699504, Meilleur score : 71076.8823712
+Epoch 60
+Quantile : 79417.3855432, Meilleur score : 71734.4216837
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 61
+Quantile : 78936.8310413, Meilleur score : 72779.964326
+Epoch 62
+Quantile : 78914.6733866, Meilleur score : 72313.5215777
+Epoch 63
+Quantile : 79312.5319365, Meilleur score : 70650.3185268
+Epoch 64
+Quantile : 78974.7997915, Meilleur score : 72985.4050831
+Epoch 65
+Quantile : 78426.6538283, Meilleur score : 70098.1081557
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 66
+Quantile : 78265.8160746, Meilleur score : 69427.7189098
+Epoch 67
+Quantile : 78713.4369602, Meilleur score : 69964.077213
+Epoch 68
+Quantile : 78596.0012723, Meilleur score : 69117.9850891
+Epoch 69
+Quantile : 78632.8136676, Meilleur score : 71449.2268023
+Epoch 70
+Quantile : 78481.8015695, Meilleur score : 68755.5347308
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 71
+Quantile : 78024.9418907, Meilleur score : 71604.6729175
+Epoch 72
+Quantile : 77290.9810828, Meilleur score : 69732.4092705
+Epoch 73
+Quantile : 77352.3168977, Meilleur score : 69106.4625931
+Epoch 74
+Quantile : 78251.7539111, Meilleur score : 71958.7953053
+Epoch 75
+Quantile : 77629.2139423, Meilleur score : 68967.1508766
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_36.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 76
+Quantile : 77290.163914, Meilleur score : 69720.9532261
+Epoch 77
+Quantile : 77910.6315974, Meilleur score : 68348.6471201
+Epoch 78
+Quantile : 77549.7578333, Meilleur score : 67815.101354
+Epoch 79
+Quantile : 77028.2472934, Meilleur score : 66700.4957611
+Epoch 80
+Quantile : 77200.3655014, Meilleur score : 69530.8458949
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_38.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 81
+Quantile : 77635.4076201, Meilleur score : 69680.4068722
+Epoch 82
+Quantile : 77599.6867128, Meilleur score : 67187.6468069
+Epoch 83
+Quantile : 76689.0218782, Meilleur score : 66092.9631731
+Epoch 84
+Quantile : 76529.4334731, Meilleur score : 65331.2729131
+Epoch 85
+Quantile : 76877.8488505, Meilleur score : 67893.0935617
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 86
+Quantile : 76778.7595269, Meilleur score : 69665.2786181
+Epoch 87
+Quantile : 77015.2631368, Meilleur score : 69141.4678112
+Epoch 88
+Quantile : 76989.9564229, Meilleur score : 69177.2186991
+Epoch 89
+Quantile : 76437.4687389, Meilleur score : 68276.9093981
+Epoch 90
+Quantile : 76945.856627, Meilleur score : 69890.6333285
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_44.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 91
+Quantile : 76716.5840914, Meilleur score : 69176.1682362
+Epoch 92
+Quantile : 76991.170853, Meilleur score : 66880.0529771
+Epoch 93
+Quantile : 75681.2128885, Meilleur score : 69964.077213
+Epoch 94
+Quantile : 75978.8588342, Meilleur score : 69417.150708
+Epoch 95
+Quantile : 75703.3714466, Meilleur score : 68001.1720722
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_46.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 96
+Quantile : 76300.6913134, Meilleur score : 66857.5527783
+Epoch 97
+Quantile : 75974.4385157, Meilleur score : 67392.0392797
+Epoch 98
+Quantile : 75723.4412635, Meilleur score : 69289.1203584
+Epoch 99
+Quantile : 76230.8241558, Meilleur score : 69340.01219
+Epoch 100
+Quantile : 75713.5454318, Meilleur score : 68150.0868165
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_48.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 101
+Quantile : 76391.887633, Meilleur score : 69728.5495175
+Epoch 102
+Quantile : 75494.6841577, Meilleur score : 70017.2359003
+Epoch 103
+Quantile : 75097.8410861, Meilleur score : 68777.5680369
+Epoch 104
+Quantile : 75520.0988567, Meilleur score : 67499.2681769
+Epoch 105
+Quantile : 75807.5205666, Meilleur score : 67542.6589515
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 106
+Quantile : 75814.2567814, Meilleur score : 69823.0710964
+Epoch 107
+Quantile : 75338.4829053, Meilleur score : 67955.6191792
+Epoch 108
+Quantile : 75097.3109833, Meilleur score : 68116.5195456
+Epoch 109
+Quantile : 75341.1018062, Meilleur score : 65630.7457848
+Epoch 110
+Quantile : 75453.0213218, Meilleur score : 68662.6181203
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_54.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 111
+Quantile : 75409.8379444, Meilleur score : 68242.5108596
+Epoch 112
+Quantile : 74822.6380979, Meilleur score : 67141.5531397
+Epoch 113
+Quantile : 75627.5882218, Meilleur score : 67297.1820526
+Epoch 114
+Quantile : 75132.5919243, Meilleur score : 66790.9218763
+Epoch 115
+Quantile : 75286.9131398, Meilleur score : 65298.8546961
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_56.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 116
+Quantile : 74805.4772072, Meilleur score : 68556.4585396
+Epoch 117
+Quantile : 75402.1999957, Meilleur score : 65974.8751578
+Epoch 118
+Quantile : 74957.6760113, Meilleur score : 65446.4128681
+Epoch 119
+Quantile : 74892.3547373, Meilleur score : 68815.9937851
+Epoch 120
+Quantile : 74372.915142, Meilleur score : 67353.1683688
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_58.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_59.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 121
+Quantile : 74872.2816104, Meilleur score : 66717.3011407
+Epoch 122
+Quantile : 74673.3081904, Meilleur score : 68286.1607038
+Epoch 123
+Quantile : 74616.4955345, Meilleur score : 66057.6443522
+Epoch 124
+Quantile : 74010.4034033, Meilleur score : 66103.8752281
+Epoch 125
+Quantile : 74131.8318935, Meilleur score : 65078.7727776
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_61.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 126
+Quantile : 74378.6953859, Meilleur score : 67132.7525881
+Epoch 127
+Quantile : 74647.6634775, Meilleur score : 68986.931255
+Epoch 128
+Quantile : 74128.4132574, Meilleur score : 67178.363388
+Epoch 129
+Quantile : 74715.8047084, Meilleur score : 65801.9745216
+Epoch 130
+Quantile : 74449.1313324, Meilleur score : 67954.8038202
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_63.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_64.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 131
+Quantile : 74132.2604473, Meilleur score : 65083.7689473
+Epoch 132
+Quantile : 74148.8024989, Meilleur score : 64077.2781785
+Epoch 133
+Quantile : 73815.6468566, Meilleur score : 65537.1909096
+Epoch 134
+Quantile : 74178.1499679, Meilleur score : 65732.7805294
+Epoch 135
+Quantile : 73998.8414725, Meilleur score : 67234.9860393
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_66.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 136
+Quantile : 73599.3958312, Meilleur score : 64867.1785462
+Epoch 137
+Quantile : 73925.9011123, Meilleur score : 65313.0325413
+Epoch 138
+Quantile : 73825.077912, Meilleur score : 67359.7011372
+Epoch 139
+Quantile : 73657.8546246, Meilleur score : 67624.376159
+Epoch 140
+Quantile : 73535.4265405, Meilleur score : 65227.1837115
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_68.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_69.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 141
+Quantile : 73389.9179725, Meilleur score : 67082.9284547
+Epoch 142
+Quantile : 73212.440481, Meilleur score : 66527.6007244
+Epoch 143
+Quantile : 73766.7620364, Meilleur score : 66918.6279958
+Epoch 144
+Quantile : 73276.4112019, Meilleur score : 68119.772515
+Epoch 145
+Quantile : 73877.5407925, Meilleur score : 64219.8978127
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_71.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 146
+Quantile : 73592.0316246, Meilleur score : 62053.3241591
+Epoch 147
+Quantile : 73729.2805803, Meilleur score : 64095.2148707
+Epoch 148
+Quantile : 72890.3434666, Meilleur score : 62579.0201721
+Epoch 149
+Quantile : 73041.3637664, Meilleur score : 65010.970819
+Epoch 150
+Quantile : 73518.9303194, Meilleur score : 61046.8333903
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_73.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_74.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 151
+Quantile : 73739.3299039, Meilleur score : 64848.1540718
+Epoch 152
+Quantile : 73314.4439714, Meilleur score : 62369.6822026
+Epoch 153
+Quantile : 72942.4490674, Meilleur score : 65980.4488725
+Epoch 154
+Quantile : 72849.5748869, Meilleur score : 64449.1614067
+Epoch 155
+Quantile : 73229.3493654, Meilleur score : 65370.1366086
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_76.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 156
+Quantile : 73339.4134022, Meilleur score : 65083.7689473
+Epoch 157
+Quantile : 73045.7825037, Meilleur score : 63183.4166617
+Epoch 158
+Quantile : 73376.5934138, Meilleur score : 63261.4801732
+Epoch 159
+Quantile : 72591.8399898, Meilleur score : 65455.8025795
+Epoch 160
+Quantile : 72444.5008945, Meilleur score : 62369.6822026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_78.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_79.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 161
+Quantile : 72587.2908746, Meilleur score : 64129.8111358
+Epoch 162
+Quantile : 73052.7018357, Meilleur score : 66803.2942709
+Epoch 163
+Quantile : 73050.5379788, Meilleur score : 61276.0969842
+Epoch 164
+Quantile : 72696.1240613, Meilleur score : 65237.0748986
+Epoch 165
+Quantile : 72893.9183295, Meilleur score : 66652.6052871
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_81.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 166
+Quantile : 72227.7871682, Meilleur score : 67357.1671238
+Epoch 167
+Quantile : 72843.2153436, Meilleur score : 64011.8552063
+Epoch 168
+Quantile : 72906.0168674, Meilleur score : 62369.6822026
+Epoch 169
+Quantile : 72529.4331614, Meilleur score : 64271.1091824
+Epoch 170
+Quantile : 72590.0177269, Meilleur score : 62282.5877531
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_83.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_84.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 171
+Quantile : 72733.7356115, Meilleur score : 62023.3337769
+Epoch 172
+Quantile : 72613.8969129, Meilleur score : 65949.945892
+Epoch 173
+Quantile : 72634.2481893, Meilleur score : 66718.5108344
+Epoch 174
+Quantile : 72618.2566655, Meilleur score : 65328.8450783
+Epoch 175
+Quantile : 72053.4713846, Meilleur score : 63334.6665976
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_86.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 176
+Quantile : 72545.2120372, Meilleur score : 64979.9056966
+Epoch 177
+Quantile : 71995.5640956, Meilleur score : 64527.5369308
+Epoch 178
+Quantile : 72373.6597506, Meilleur score : 63334.6665976
+Epoch 179
+Quantile : 72553.6688243, Meilleur score : 63635.400868
+Epoch 180
+Quantile : 71789.3009076, Meilleur score : 63792.2629957
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_88.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_89.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 181
+Quantile : 72279.429285, Meilleur score : 65902.7330979
+Epoch 182
+Quantile : 72121.8664238, Meilleur score : 66118.3325651
+Epoch 183
+Quantile : 72156.4709139, Meilleur score : 65874.8419536
+Epoch 184
+Quantile : 71773.9394876, Meilleur score : 64635.2970338
+Epoch 185
+Quantile : 72101.6649346, Meilleur score : 62895.3782156
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_91.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 186
+Quantile : 71925.5464949, Meilleur score : 64832.9185948
+Epoch 187
+Quantile : 71635.7737243, Meilleur score : 62027.0472531
+Epoch 188
+Quantile : 72260.0692063, Meilleur score : 64536.2558562
+Epoch 189
+Quantile : 71614.2753642, Meilleur score : 62808.2837661
+Epoch 190
+Quantile : 71504.8321854, Meilleur score : 63514.3656976
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_93.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_94.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 191
+Quantile : 71193.4694116, Meilleur score : 62865.3878334
+Epoch 192
+Quantile : 72159.7418289, Meilleur score : 66919.1392462
+Epoch 193
+Quantile : 71933.920256, Meilleur score : 64736.2682236
+Epoch 194
+Quantile : 72089.4611096, Meilleur score : 63510.0697824
+Epoch 195
+Quantile : 71249.4755349, Meilleur score : 64764.6909593
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_96.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 196
+Quantile : 71964.3845791, Meilleur score : 64467.8537346
+Epoch 197
+Quantile : 71927.4960591, Meilleur score : 63783.4627101
+Epoch 198
+Quantile : 71607.3820656, Meilleur score : 65840.0837543
+Epoch 199
+Quantile : 71807.7242532, Meilleur score : 66103.8752281
+Epoch 200
+Quantile : 70974.8893643, Meilleur score : 64011.8552063
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_98.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_99.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 201
+Quantile : 71366.6307968, Meilleur score : 65449.8841696
+Epoch 202
+Quantile : 71371.9686774, Meilleur score : 65062.3126238
+Epoch 203
+Quantile : 71322.562847, Meilleur score : 65482.9154504
+Epoch 204
+Quantile : 71219.2894852, Meilleur score : 62895.3782156
+Epoch 205
+Quantile : 71576.1686516, Meilleur score : 63952.3830668
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_101.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 206
+Quantile : 71257.2273393, Meilleur score : 64798.0082533
+Epoch 207
+Quantile : 71406.308223, Meilleur score : 62369.6822026
+Epoch 208
+Quantile : 71898.4587269, Meilleur score : 64047.2877963
+Epoch 209
+Quantile : 71325.6964617, Meilleur score : 61046.8333903
+Epoch 210
+Quantile : 71077.6395049, Meilleur score : 63104.0478036
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_103.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_104.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 211
+Quantile : 71392.361857, Meilleur score : 67213.1381951
+Epoch 212
+Quantile : 70496.9191182, Meilleur score : 61315.8501278
+Epoch 213
+Quantile : 71151.1074098, Meilleur score : 64335.0273695
+Epoch 214
+Quantile : 71513.9822586, Meilleur score : 65355.1336503
+Epoch 215
+Quantile : 70688.9786039, Meilleur score : 62339.6918204
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_106.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 216
+Quantile : 71406.27235, Meilleur score : 62549.0297899
+Epoch 217
+Quantile : 70976.1674997, Meilleur score : 64129.8111358
+Epoch 218
+Quantile : 71017.4051449, Meilleur score : 64635.2970338
+Epoch 219
+Quantile : 70611.3885124, Meilleur score : 65551.9023091
+Epoch 220
+Quantile : 70995.9236542, Meilleur score : 63104.0478036
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_108.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_109.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 221
+Quantile : 71256.6340564, Meilleur score : 66796.8261224
+Epoch 222
+Quantile : 71036.1999337, Meilleur score : 62579.0201721
+Epoch 223
+Quantile : 71240.8173546, Meilleur score : 62579.0201721
+Epoch 224
+Quantile : 70769.2139505, Meilleur score : 63864.6644619
+Epoch 225
+Quantile : 71135.3458374, Meilleur score : 65170.5871787
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_111.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 226
+Quantile : 71177.9110597, Meilleur score : 61304.5825814
+Epoch 227
+Quantile : 70798.2943501, Meilleur score : 64488.659676
+Epoch 228
+Quantile : 70259.725898, Meilleur score : 61046.8333903
+Epoch 229
+Quantile : 70950.6627982, Meilleur score : 62027.0472531
+Epoch 230
+Quantile : 70610.3699079, Meilleur score : 64099.8207536
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_113.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_114.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 231
+Quantile : 70505.034041, Meilleur score : 63754.2375631
+Epoch 232
+Quantile : 70982.9179791, Meilleur score : 64387.3411119
+Epoch 233
+Quantile : 70174.7560024, Meilleur score : 63104.0478036
+Epoch 234
+Quantile : 70412.0234984, Meilleur score : 62865.3878334
+Epoch 235
+Quantile : 69952.5515052, Meilleur score : 63951.7589115
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_116.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 236
+Quantile : 71162.4856603, Meilleur score : 61542.5390211
+Epoch 237
+Quantile : 70095.5526956, Meilleur score : 62339.6918204
+Epoch 238
+Quantile : 70163.8573526, Meilleur score : 64387.3411119
+Epoch 239
+Quantile : 70113.6277972, Meilleur score : 62053.3241591
+Epoch 240
+Quantile : 70052.1445841, Meilleur score : 63637.1577894
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_118.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_119.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 241
+Quantile : 70388.3394499, Meilleur score : 62549.0297899
+Epoch 242
+Quantile : 70363.5382733, Meilleur score : 63476.1085073
+Epoch 243
+Quantile : 70171.1665072, Meilleur score : 63361.1401321
+Epoch 244
+Quantile : 70035.3984109, Meilleur score : 62549.0297899
+Epoch 245
+Quantile : 70200.39174, Meilleur score : 62865.3878334
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_121.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 246
+Quantile : 70503.8798236, Meilleur score : 65400.1269908
+Epoch 247
+Quantile : 69903.1768522, Meilleur score : 61738.0936771
+Epoch 248
+Quantile : 69784.9093346, Meilleur score : 62023.3337769
+Epoch 249
+Quantile : 70326.349393, Meilleur score : 62339.6918204
+Epoch 250
+Quantile : 70064.0115012, Meilleur score : 64601.0358729
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_123.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_124.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 251
+Quantile : 70034.9781374, Meilleur score : 62027.0472531
+Epoch 252
+Quantile : 70190.2807318, Meilleur score : 61501.3512401
+Epoch 253
+Quantile : 69284.4908799, Meilleur score : 61572.5294033
+Epoch 254
+Quantile : 70136.33713, Meilleur score : 62806.9623234
+Epoch 255
+Quantile : 70234.4091302, Meilleur score : 62062.1244448
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_126.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 256
+Quantile : 70145.0315292, Meilleur score : 61342.520347
+Epoch 257
+Quantile : 69829.7944104, Meilleur score : 62549.0297899
+Epoch 258
+Quantile : 69866.0855346, Meilleur score : 64606.1595538
+Epoch 259
+Quantile : 69626.3952002, Meilleur score : 63199.2935711
+Epoch 260
+Quantile : 70006.6273627, Meilleur score : 63608.889841
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_128.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_129.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 261
+Quantile : 70151.2364183, Meilleur score : 62369.6822026
+Epoch 262
+Quantile : 69996.9502404, Meilleur score : 61020.5564843
+Epoch 263
+Quantile : 69748.9881525, Meilleur score : 61379.7341726
+Epoch 264
+Quantile : 69781.4263305, Meilleur score : 62053.3241591
+Epoch 265
+Quantile : 70069.9483191, Meilleur score : 62369.6822026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_131.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 266
+Quantile : 69816.032383, Meilleur score : 62062.1244448
+Epoch 267
+Quantile : 69608.2424858, Meilleur score : 62062.1244448
+Epoch 268
+Quantile : 69504.3434354, Meilleur score : 62579.0201721
+Epoch 269
+Quantile : 69660.2247342, Meilleur score : 62895.3782156
+Epoch 270
+Quantile : 69559.2956809, Meilleur score : 62339.6918204
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_133.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_134.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 271
+Quantile : 69576.9355631, Meilleur score : 63635.400868
+Epoch 272
+Quantile : 69569.1441079, Meilleur score : 61276.0969842
+Epoch 273
+Quantile : 69536.6500757, Meilleur score : 61817.7092836
+Epoch 274
+Quantile : 69476.7351714, Meilleur score : 64070.9830684
+Epoch 275
+Quantile : 69585.4854579, Meilleur score : 61501.3512401
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_136.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 276
+Quantile : 69911.4679876, Meilleur score : 62369.6822026
+Epoch 277
+Quantile : 69536.902085, Meilleur score : 62053.3241591
+Epoch 278
+Quantile : 69722.8359413, Meilleur score : 62369.6822026
+Epoch 279
+Quantile : 69174.3519008, Meilleur score : 62023.3337769
+Epoch 280
+Quantile : 69313.3318377, Meilleur score : 62053.3241591
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_138.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_139.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 281
+Quantile : 68921.4384663, Meilleur score : 62617.6381245
+Epoch 282
+Quantile : 69140.5781858, Meilleur score : 62369.6822026
+Epoch 283
+Quantile : 69330.8444069, Meilleur score : 61501.3512401
+Epoch 284
+Quantile : 69439.4568877, Meilleur score : 63336.2368566
+Epoch 285
+Quantile : 69448.489012, Meilleur score : 62895.3782156
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_141.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 286
+Quantile : 69596.0935977, Meilleur score : 62053.3241591
+Epoch 287
+Quantile : 69415.8490002, Meilleur score : 62339.6918204
+Epoch 288
+Quantile : 68833.9148587, Meilleur score : 62369.6822026
+Epoch 289
+Quantile : 69551.6058972, Meilleur score : 61304.5825814
+Epoch 290
+Quantile : 69415.7785266, Meilleur score : 59592.8082596
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_143.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_144.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 291
+Quantile : 69138.9959409, Meilleur score : 62865.3878334
+Epoch 292
+Quantile : 69262.1047897, Meilleur score : 64102.3077999
+Epoch 293
+Quantile : 68959.8829852, Meilleur score : 63806.2307129
+Epoch 294
+Quantile : 68743.0359804, Meilleur score : 62895.3782156
+Epoch 295
+Quantile : 69001.2956765, Meilleur score : 61501.3512401
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_146.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 296
+Quantile : 68935.5060391, Meilleur score : 62536.8394076
+Epoch 297
+Quantile : 69508.4827959, Meilleur score : 64307.2476417
+Epoch 298
+Quantile : 69166.3784616, Meilleur score : 62865.3878334
+Epoch 299
+Quantile : 69269.5061543, Meilleur score : 62053.3241591
+Epoch 300
+Quantile : 69242.1271396, Meilleur score : 63113.1842102
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_148.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_149.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 301
+Quantile : 68846.9357016, Meilleur score : 64123.2633054
+Epoch 302
+Quantile : 69145.4341954, Meilleur score : 62617.6381245
+Epoch 303
+Quantile : 69159.3592268, Meilleur score : 62826.976094
+Epoch 304
+Quantile : 68453.8170402, Meilleur score : 62369.6822026
+Epoch 305
+Quantile : 68586.7391563, Meilleur score : 62053.3241591
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_151.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 306
+Quantile : 68723.5599298, Meilleur score : 62369.6822026
+Epoch 307
+Quantile : 68606.7511343, Meilleur score : 62023.3337769
+Epoch 308
+Quantile : 68955.9034659, Meilleur score : 62343.4052966
+Epoch 309
+Quantile : 68696.7433777, Meilleur score : 61501.3512401
+Epoch 310
+Quantile : 68398.9158382, Meilleur score : 62369.6822026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_153.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_154.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 311
+Quantile : 68919.8120427, Meilleur score : 62975.1893287
+Epoch 312
+Quantile : 69017.5017081, Meilleur score : 62528.0391219
+Epoch 313
+Quantile : 68598.532138, Meilleur score : 61801.7929972
+Epoch 314
+Quantile : 69017.2015118, Meilleur score : 61830.2785944
+Epoch 315
+Quantile : 68787.9066245, Meilleur score : 62339.6918204
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_156.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 316
+Quantile : 68460.5055714, Meilleur score : 61025.6432937
+Epoch 317
+Quantile : 69190.3264481, Meilleur score : 63367.2348311
+Epoch 318
+Quantile : 68769.6927845, Meilleur score : 63683.5928746
+Epoch 319
+Quantile : 68614.9509453, Meilleur score : 62369.6822026
+Epoch 320
+Quantile : 69026.5076351, Meilleur score : 62027.0472531
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_158.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_159.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 321
+Quantile : 68990.7399706, Meilleur score : 62053.3241591
+Epoch 322
+Quantile : 68549.2682075, Meilleur score : 62329.7460878
+Epoch 323
+Quantile : 67640.9402701, Meilleur score : 62053.3241591
+Epoch 324
+Quantile : 68785.8432096, Meilleur score : 59592.8082596
+Epoch 325
+Quantile : 68507.9340403, Meilleur score : 61046.8333903
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_161.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 326
+Quantile : 68537.0998021, Meilleur score : 61501.3512401
+Epoch 327
+Quantile : 68398.8554123, Meilleur score : 62023.3337769
+Epoch 328
+Quantile : 68127.891886, Meilleur score : 62579.0201721
+Epoch 329
+Quantile : 67859.7729595, Meilleur score : 61387.5136875
+Epoch 330
+Quantile : 68779.9971478, Meilleur score : 60073.6030154
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_163.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_164.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 331
+Quantile : 68025.5218432, Meilleur score : 61830.2785944
+Epoch 332
+Quantile : 68182.9561423, Meilleur score : 62053.3241591
+Epoch 333
+Quantile : 68373.0178863, Meilleur score : 62097.5570348
+Epoch 334
+Quantile : 68587.9272668, Meilleur score : 60599.2990285
+Epoch 335
+Quantile : 67747.6537142, Meilleur score : 61387.5136875
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_166.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 336
+Quantile : 68091.2908427, Meilleur score : 62369.6822026
+Epoch 337
+Quantile : 68060.2483698, Meilleur score : 61572.5294033
+Epoch 338
+Quantile : 68297.7182035, Meilleur score : 62023.3337769
+Epoch 339
+Quantile : 67916.5961307, Meilleur score : 62343.4052966
+Epoch 340
+Quantile : 68281.4523056, Meilleur score : 62053.3241591
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_168.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_169.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 341
+Quantile : 68256.6769276, Meilleur score : 59067.1122466
+Epoch 342
+Quantile : 68075.1094587, Meilleur score : 61294.7893122
+Epoch 343
+Quantile : 67993.1539578, Meilleur score : 62369.6822026
+Epoch 344
+Quantile : 67755.0326592, Meilleur score : 60599.2990285
+Epoch 345
+Quantile : 67650.5288441, Meilleur score : 62053.3241591
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_171.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 346
+Quantile : 68087.1644804, Meilleur score : 61817.7092836
+Epoch 347
+Quantile : 68254.0279778, Meilleur score : 61501.3512401
+Epoch 348
+Quantile : 68338.5641655, Meilleur score : 60073.6030154
+Epoch 349
+Quantile : 67653.1472151, Meilleur score : 60073.6030154
+Epoch 350
+Quantile : 67998.9780014, Meilleur score : 62369.6822026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_173.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_174.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 351
+Quantile : 68308.6298078, Meilleur score : 62528.0391219
+Epoch 352
+Quantile : 67884.7331625, Meilleur score : 62023.3337769
+Epoch 353
+Quantile : 68045.6107744, Meilleur score : 62282.5877531
+Epoch 354
+Quantile : 67873.680277, Meilleur score : 61156.6886078
+Epoch 355
+Quantile : 67462.6213006, Meilleur score : 61304.5825814
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_176.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 356
+Quantile : 68072.8202041, Meilleur score : 62023.3337769
+Epoch 357
+Quantile : 67724.2222249, Meilleur score : 61620.9406249
+Epoch 358
+Quantile : 67811.8339706, Meilleur score : 60073.6030154
+Epoch 359
+Quantile : 67646.2024609, Meilleur score : 62343.4052966
+Epoch 360
+Quantile : 67525.0032516, Meilleur score : 62369.6822026
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_178.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_179.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 361
+Quantile : 67907.6144103, Meilleur score : 61501.3512401
+Epoch 362
+Quantile : 67784.5615312, Meilleur score : 61801.7929972
+Epoch 363
+Quantile : 68358.883795, Meilleur score : 61817.7092836
+Epoch 364
+Quantile : 67758.1730458, Meilleur score : 61501.3512401
+Epoch 365
+Quantile : 67813.3657524, Meilleur score : 61046.8333903
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_181.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 366
+Quantile : 68289.3585369, Meilleur score : 62240.1766691
+Epoch 367
+Quantile : 67500.4976595, Meilleur score : 61501.3512401
+Epoch 368
+Quantile : 67455.9134306, Meilleur score : 61304.5825814
+Epoch 369
+Quantile : 67627.9932452, Meilleur score : 62053.3241591
+Epoch 370
+Quantile : 67537.4958989, Meilleur score : 62301.280081
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_183.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_184.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 371
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-56-680ee5db144d> in <module>()
+    ----> 1 get\_ipython().run\_cell\_magic(u'time', u'', u'tsp\_Bayes = CE\_solution(c,method="Bayes", perc = 1)')
+    
+
+        /usr/local/lib/python2.7/site-packages/IPython/core/interactiveshell.pyc in run\_cell\_magic(self, magic\_name, line, cell)
+       2115             magic\_arg\_s = self.var\_expand(line, stack\_depth)
+       2116             with self.builtin\_trap:
+    -> 2117                 result = fn(magic\_arg\_s, cell)
+       2118             return result
+       2119 
+
+
+        <decorator-gen-60> in time(self, line, cell, local\_ns)
+
+
+        /usr/local/lib/python2.7/site-packages/IPython/core/magic.pyc in <lambda>(f, *a, **k)
+        186     \# but it's overkill for just that one bit of state.
+        187     def magic\_deco(arg):
+    --> 188         call = lambda f, *a, **k: f(*a, **k)
+        189 
+        190         if callable(arg):
+
+
+        /usr/local/lib/python2.7/site-packages/IPython/core/magics/execution.pyc in time(self, line, cell, local\_ns)
+       1191         else:
+       1192             st = clock2()
+    -> 1193             exec(code, glob, local\_ns)
+       1194             end = clock2()
+       1195             out = None
+
+
+        <timed exec> in <module>()
+
+
+        <ipython-input-12-d6fa9b6e42bb> in CE\_solution(c, method, k, perc, alpha)
+          3 
+          4     tsp = TSP(c,k=k,perc=perc,methode=method,alpha=alpha)
+    ----> 5     tsp.CE\_fit()
+          6     return tsp
+
+
+        <ipython-input-1-8585bca50357> in CE\_fit(self)
+        211 
+        212             \#genere les "tours"
+    --> 213             x = self.generate\_tours().astype(np.int)
+        214 
+        215             \#calcul du score pour chaque tour
+
+
+        <ipython-input-1-8585bca50357> in generate\_tours(self)
+        100 
+        101                 \#génère une multinomiale(1,p1,{\ldots},pn) pour trouver la prochaine ville
+    --> 102                 tours[obs,step] = np.random.choice(np.arange(self.n),1, p=p[tours[obs,(step-1)],:])[0]
+        103 
+        104             tours[obs,-1] = 0 \#retour à la ville 0 (départ)
+
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{}print(tsp\PYZus{}Bayes.solution)}
+\end{Verbatim}
+
+
+    \hypertarget{affichage-sur-une-carte}{%
+\subsubsection{Affichage sur une carte}\label{affichage-sur-une-carte}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{k+kn}{import} \PY{n+nn}{folium}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}my\PYZus{}world\PYZus{}tour}\PY{p}{(}\PY{n}{permut1}\PY{p}{,}\PY{n}{df}\PY{p}{,}\PY{n}{tsp2}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{line}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{locations1} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{permut1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+              \PY{n}{names1} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{permut1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city\PYZus{}ascii}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{locationlist1} \PY{o}{=} \PY{n}{locations1}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{}centre la map sur Paris}
+              \PY{n}{map\PYZus{}osm} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{48.82}\PY{p}{,} \PY{l+m+mf}{2.26}\PY{p}{]}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{}affiche les villesp points pas points}
+              \PY{k}{for} \PY{n}{point} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{locationlist1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{locationlist1}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{,} \PY{n}{popup}\PY{o}{=}\PY{n}{names1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}osm}\PY{p}{)}
+                  
+              \PY{c+c1}{\PYZsh{}relie les villes entre elles selon le tour optimal}
+              \PY{k}{if} \PY{n}{line}\PY{p}{:}
+                  \PY{n}{folium}\PY{o}{.}\PY{n}{PolyLine}\PY{p}{(}\PY{n}{locationlist1}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}osm}\PY{p}{)}
+              
+              \PY{k}{if} \PY{n}{tsp2}\PY{p}{:}
+          
+                  \PY{n}{permut2} \PY{o}{=} \PY{n}{tsp2}\PY{o}{.}\PY{n}{solution}
+                  \PY{n}{locations2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{permut2}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{names2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{permut2}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city\PYZus{}ascii}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{locationlist2} \PY{o}{=} \PY{n}{locations2}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{}affiche les villesp points pas points}
+                  \PY{k}{for} \PY{n}{point} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{locationlist2}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{locationlist2}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{,} \PY{n}{popup}\PY{o}{=}\PY{n}{names2}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{point}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}osm}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{}relie les villes entre elles selon le tour optimal}
+                  \PY{n}{folium}\PY{o}{.}\PY{n}{PolyLine}\PY{p}{(}\PY{n}{locationlist2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}osm}\PY{p}{)}
+          
+              \PY{n}{map\PYZus{}osm}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{map1.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{map\PYZus{}osm}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{plot\PYZus{}my\PYZus{}world\PYZus{}tour}\PY{p}{(}\PY{n}{tsp\PYZus{}Smooth}\PY{o}{.}\PY{n}{solution}\PY{p}{,}\PY{n}{df}\PY{p}{,}\PY{n}{line}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:} <folium.folium.Map at 0x111e16710>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+m+mi}{37}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{27}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{26}\PY{p}{,} \PY{l+m+mi}{36}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{47}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{44}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{49}\PY{p}{,} \PY{l+m+mi}{33}\PY{p}{,} \PY{l+m+mi}{43}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{42}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{41}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{29}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{plot\PYZus{}my\PYZus{}world\PYZus{}tour}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{df}\PY{p}{,}\PY{n}{line}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:} <folium.folium.Map at 0x112982410>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{plot\PYZus{}my\PYZus{}world\PYZus{}tour}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:} <folium.folium.Map at 0x1133c6e10>
+\end{Verbatim}
+            
+    \hypertarget{autres-examples}{%
+\section{Autres examples}\label{autres-examples}}
+
+    \hypertarget{gr17}{%
+\subsection{GR17}\label{gr17}}
+
+    GR17 is a set of 17 cities, from TSPLIB. The minimal tour has length
+2085.
+
+Meilleur score obtenu par l'algo : 2096
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://people.sc.fsu.edu/\PYZti{}jburkardt/datasets/tsp/gr17\PYZus{}d.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{c}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (17, 17)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         \PYZsh{}TSP = CE\PYZus{}solution(c,k=5,perc=1)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 3 µs, sys: 0 ns, total: 3 µs
+Wall time: 7.15 µs
+
+    \end{Verbatim}
+
+    \hypertarget{att48}{%
+\subsection{ATT48}\label{att48}}
+
+    ATT48 is a set of 48 cities (US state capitals) from TSPLIB. The minimal
+tour has length 10628.
+
+Meilleur score obtenu par l'algo :
+
+Sur ce dataset on est tres loin de la solution optimale !!!!!!
+(pourquoi? )
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://people.sc.fsu.edu/\PYZti{}jburkardt/datasets/tsp/att48\PYZus{}d.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{c}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} (48, 48)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         \PYZsh{}TSP = CE\PYZus{}solution(c,k=5,perc=1)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 3 µs, sys: 1e+03 ns, total: 4 µs
+Wall time: 7.15 µs
+
+    \end{Verbatim}
+
+    \hypertarget{ft53}{%
+\subsection{ft53}\label{ft53}}
+
+    Dataset de l'article
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{read\PYZus{}atsp}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{p}{:}
+             
+            \PY{n}{ds} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{DataSource}\PY{p}{(}\PY{p}{)}
+            \PY{n}{input\PYZus{}f} \PY{o}{=} \PY{n}{ds}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+            \PY{n}{num\PYZus{}lines\PYZus{}skip} \PY{o}{=} \PY{l+m+mi}{6}
+            \PY{n}{lst} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{input\PYZus{}f}\PY{p}{)}\PY{p}{:}
+            
+                \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{num\PYZus{}lines\PYZus{}skip}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EOF}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{line}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{continue}
+        
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+          
+            \PY{n}{lst} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lst}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+             
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{lst}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{53}\PY{p}{,} \PY{l+m+mi}{53}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{c} \PY{o}{=} \PY{n}{read\PYZus{}atsp}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://elib.zib.de/pub/mp\PYZhy{}testdata/tsp/tsplib/atsp/ft53.atsp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{c}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{c}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{CE\PYZus{}solution}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}\PY{n}{perc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{stop}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{n}{TSP} \PY{o}{=} \PY{n}{TSPCrossEntropy}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{n}{k}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{n}{alpha}\PY{p}{,}\PY{n}{perc}\PY{o}{=}\PY{n}{perc}\PY{p}{,}\PY{n}{stop}\PY{o}{=}\PY{n}{stop}\PY{p}{)}
+            \PY{n}{TSP}\PY{o}{.}\PY{n}{CE\PYZus{}fit}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{TSP}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+        \PYZsh{}TSP = CE\PYZus{}solution(c)
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
