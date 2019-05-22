@@ -1,0 +1,26 @@
+city,city_ascii,lat,lng,country,iso2,iso3,admin_name,capital,population,id
+Khartoum,Khartoum,15.5881,32.5342,Sudan,SD,SDN,Khartoum,primary,4754000.0,1729268475
+Baghdad,Baghdad,33.3386,44.3939,Iraq,IQ,IRQ,Baghdād,primary,5054000.0,1368596238
+Luanda,Luanda,-8.8383,13.2344,Angola,AO,AGO,Luanda,primary,5172900.0,1024949724
+Singapore,Singapore,1.293,103.8558,Singapore,SG,SGP,,primary,5183700.0,1702341327
+Washington,Washington,38.9047,-77.0163,United States,US,USA,District of Columbia,primary,5289420.0,1840006060
+Madrid,Madrid,40.4,-3.6834,Spain,ES,ESP,Madrid,primary,5567000.0,1724616994
+Santiago,Santiago,-33.45,-70.667,Chile,CL,CHL,Región Metropolitana,primary,5720000.0,1152554349
+Bangkok,Bangkok,13.75,100.5166,Thailand,TH,THA,Krung Thep Maha Nakhon,primary,6704000.0,1764068610
+Taipei,Taipei,25.0358,121.5683,Taiwan,TW,TWN,Taipei,primary,6900273.0,1158881289
+Bogota,Bogota,4.5964,-74.0833,Colombia,CO,COL,Bogotá,primary,7772000.0,1170483426
+Kinshasa,Kinshasa,-4.3297,15.315,Congo (Kinshasa),CD,COD,Kinshasa,primary,7843000.0,1180000363
+Tehran,Tehran,35.6719,51.4243,Iran,IR,IRN,Tehrān,primary,7873000.0,1364305026
+Lima,Lima,-12.048,-77.0501,Peru,PE,PER,Lima,primary,8012000.0,1604728603
+London,London,51.5,-0.1167,United Kingdom,GB,GBR,,primary,8567000.0,1826645935
+Jakarta,Jakarta,-6.1744,106.8294,Indonesia,ID,IDN,Jakarta,primary,9125000.0,1360771077
+Seoul,Seoul,37.5663,126.9997,"Korea, South",KR,KOR,Seoul,primary,9796000.0,1410836482
+Paris,Paris,48.8667,2.3333,France,FR,FRA,Île-de-France,primary,9904000.0,1250015082
+Moscow,Moscow,55.7522,37.6155,Russia,RU,RUS,Moskva,primary,10452000.0,1643318494
+Manila,Manila,14.6042,120.9822,Philippines,PH,PHL,,primary,11100000.0,1608618140
+Beijing,Beijing,39.9289,116.3883,China,CN,CHN,Beijing,primary,11106000.0,1156228865
+Cairo,Cairo,30.05,31.25,Egypt,EG,EGY,Al Qāhirah,primary,11893000.0,1818253931
+Buenos Aires,Buenos Aires,-34.6025,-58.3975,Argentina,AR,ARG,"Buenos Aires, Ciudad Autónoma de",primary,12795000.0,1032717330
+Dhaka,Dhaka,23.7231,90.4086,Bangladesh,BD,BGD,Dhaka,primary,12797394.0,1050529279
+Mexico City,Mexico City,19.4424,-99.131,Mexico,MX,MEX,Ciudad de México,primary,19028000.0,1484247881
+Tokyo,Tokyo,35.685,139.7514,Japan,JP,JPN,Tōkyō,primary,35676000.0,1392685764
