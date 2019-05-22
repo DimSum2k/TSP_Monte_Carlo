@@ -5,4 +5,5 @@ Dans ce projet, on utilser deux approches pour approximer la solution optimale d
 Les deux approches sont fondées sur la Cross Entropy Method de Reuven Rubinstein. 
 La deuxieme approche ajoute une touche bayesienne.
 
-![alt text](Images/Image1.png)
+![alt text](Images/image1.png)
+![alt text](Images/Image2.png)
