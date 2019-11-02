@@ -4,7 +4,7 @@ In this project, two approaches are used to approximate the optimal solution of 
 
 Both approaches are based on Reuven Rubinstein's Cross Entropy Method. 
 The second approach study the effect of adding a Bayesian component in the algorithm.
-`Presentation.pdf` is our presentation from our defense during the 2019 class.
+`Presentation.pdf` is our presentation from our defense during the 2019 class (in French).
 
 ![alt text](Images/image1.png)
 ![alt text](Images/Image2.png)
